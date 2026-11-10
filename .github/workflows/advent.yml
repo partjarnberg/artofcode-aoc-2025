@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Registrera kodversion och visa eventuell verifieringskod
+      - name: Registrera repo och kodversion
         env:
           ADVENT_API_URL: ${{ vars.ADVENT_API_URL || 'https://aoc.artofcode.se/api/v1/github/push' }}
         run: python3 .github/scripts/publish.py
