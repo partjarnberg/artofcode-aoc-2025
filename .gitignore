@@ -1,0 +1,11 @@
+.private/
+.env
+.env.*
+!.env.example
+node_modules/
+__pycache__/
+.venv/
+target/
+dist/
+*.log
+.DS_Store

@@ -1,0 +1,10 @@
+.git/
+.private/
+.env
+.env.*
+!.env.example
+node_modules/
+__pycache__/
+.venv/
+*.log
+.DS_Store

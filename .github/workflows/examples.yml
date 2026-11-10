@@ -1,0 +1,23 @@
+name: Verify teaching examples
+on:
+  push:
+    paths: ['examples/**', '.dockerignore', '.github/workflows/examples.yml']
+  pull_request:
+    paths: ['examples/**', '.dockerignore', '.github/workflows/examples.yml']
+permissions:
+  contents: read
+jobs:
+  examples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        track: [manual, agent]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test the example container
+        run: docker build -f examples/2025/day01/${{ matrix.track }}/Dockerfile -t advent-example .
+      - name: Verify stdin and both parts with our own data
+        run: |
+          test "$(printf 'R250\nL200\nR1\nL1\n' | docker run --rm -i advent-example --part 1)" = '3'
+          test "$(printf 'R250\nL200\nR1\nL1\n' | docker run --rm -i advent-example --part 2)" = '6'

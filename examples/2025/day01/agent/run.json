@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "source": "participant_report",
+  "tool": { "name": "Codex", "version": null },
+  "human_interventions": null,
+  "models": []
+}
