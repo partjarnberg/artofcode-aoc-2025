@@ -26,7 +26,7 @@ Vi litar på att du anger ditt eget AoC-ID. GitHub bekräftar repo och ägare; A
 2. **Koden är pushad till `main`** (eller repots default branch). Lägg lösningen i `days/NN/manual/src/` eller `days/NN/agent/src/`, där `NN` är två siffror, exempelvis `01`. Minst en källfil måste innehålla text. Tomma mappar och undervisningsexemplen registreras inte.
 3. **Publiceringen har lyckats.** Öppna **Actions → Publicera Advent-lösningar → senaste körningen**. Sammanfattningen visar hur många dagslösningar som registrerades. En grön körning betyder att API:t har tagit emot versionen; analysen kan fortfarande vänta.
 4. **Rätt år, dag och del är godkända på AoC.** Vi hämtar resultat högst en gång per kvart. Del 1 kan analyseras även om del 2 återstår. AoC godkänner ditt svar, inte en viss GitHub-commit.
-5. **Workern har läst och analyserat koden.** Efter AoC-synken tar kön normalt ytterligare någon minut, längre om många väntar. När resultatet finns under **Topplistor → Kodrader**, med rätt år, dag, del och spår samt länk till den analyserade versionen, är analysen färdig.
+5. **Workern har läst och analyserat koden.** Efter AoC-synken tar kön normalt ytterligare någon minut, längre om många väntar. Om GitHubs API-kvot är slut väntar vi tills GitHub tillåter nya anrop och fortsätter automatiskt; du behöver inte pusha igen. När resultatet finns under **Topplistor → Kodrader**, med rätt år, dag, del och spår samt länk till den analyserade versionen, är analysen färdig.
 
 **Ingen `solution.json` behövs för standardstrukturen.** Språket identifieras automatiskt. Båda delarna registreras som standard och väntar var för sig på AoC-godkännande. Om programmet bara stöder en del kan du begränsa det med den valfria konfigurationen nedan.
 
