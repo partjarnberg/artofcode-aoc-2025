@@ -26,7 +26,7 @@ Vi litar på att du anger ditt eget AoC-ID. GitHub bekräftar repo och ägare; A
 2. **Koden är pushad till `main`** (eller repots default branch). Lägg lösningen i `days/NN/manual/src/` eller `days/NN/agent/src/`, där `NN` är två siffror, exempelvis `01`. Minst en källfil måste innehålla text. Tomma mappar och undervisningsexemplen registreras inte.
 3. **Publiceringen har lyckats.** Öppna **Actions → Publicera Advent-lösningar → senaste körningen**. Sammanfattningen visar hur många dagslösningar som registrerades. En grön körning betyder att API:t har tagit emot versionen; analysen kan fortfarande vänta.
 4. **Rätt år, dag och del är godkända på AoC.** Vi hämtar resultat högst en gång per kvart. Del 1 kan analyseras även om del 2 återstår. AoC godkänner ditt svar, inte en viss GitHub-commit.
-5. **Workern har läst och analyserat koden.** Efter AoC-synken tar kön normalt ytterligare någon minut, längre om många väntar. Om GitHubs API-kvot är slut väntar vi tills GitHub tillåter nya anrop och fortsätter automatiskt; du behöver inte pusha igen. När resultatet finns under **Topplistor → Kodrader**, med rätt år, dag, del och spår samt länk till den analyserade versionen, är analysen färdig.
+5. **Workern har läst och analyserat koden.** När AoC-godkännandet finns startar analysen via vår kö, där flera lösningar kan behandlas samtidigt. Förbättringar av en redan godkänd uppgift behöver inte vänta på nästa AoC-synk. Resultatet kan sedan dröja upp till en minut i sidans cache. Om GitHubs API-kvot är slut väntar vi tills GitHub tillåter nya anrop och fortsätter automatiskt; du behöver inte pusha igen. När resultatet finns under **Topplistor → Kodrader**, med rätt år, dag, del och spår samt länk till den analyserade versionen, är analysen färdig.
 
 **Ingen `solution.json` behövs för standardstrukturen.** Språket identifieras automatiskt. Båda delarna registreras som standard och väntar var för sig på AoC-godkännande. Om programmet bara stöder en del kan du begränsa det med den valfria konfigurationen nedan.
 
@@ -47,6 +47,17 @@ Skapa `solution.json` i dagslösningens mapp **endast om du behöver ändra stan
 ```
 
 Alla fält är valfria. Utan filen används `source_paths: ["src"]`, `parts: [1, 2]` och `shared_paths: []`. Källkodsmapparna anges relativt dagens spårmapp, exempelvis `days/01/manual/`. Delade filer eller mappar anges från repots rot och måste ligga under `shared/`. Ange bara egen kod som lösningen faktiskt använder; den räknas med i kodraderna. Sökvägar får inte lämna dagsmappen med `../`. Tester ligger separat under `tests/`. Du ska inte ange programmeringsspråk.
+
+
+`parts` betyder **vilka delar av dagens AoC-uppgift som koden stöder**:
+
+- `[1]`: bara del 1.
+- `[2]`: bara del 2.
+- `[1, 2]`: både del 1 och del 2.
+
+Varje del väntar på sitt eget AoC-godkännande. Har bara del 1 godkänts kan den analyseras medan del 2 väntar. `parts` väljer inte källfiler: hela den angivna källkodsmappen räknas för varje del, så samma kodversion får samma kodradsantal på båda listorna. Även om du har separata filer för delarna räknas båda om de ligger i den mapp som analyseras.
+
+Det är en annan sak än `--part 1` eller `--part 2`, som väljer vilken del programmet ska köra när du testar det själv. Workern kör inte programmet. Om koden bara löser del 1 anger du `"parts": [1]`; när den stöder båda kan du ta bort fältet eller hela config-filen om övriga standardval passar.
 
 Äldre filer med `schema_version: 1` och `language` fungerar fortfarande, men språkfältet används inte. Ta bort filen om du använder standardvalen. Vid ändring av en dagslösning, dess konfiguration eller gemensam kod registrerar nästa push en ny version för analys.
 

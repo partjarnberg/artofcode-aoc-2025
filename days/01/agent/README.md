@@ -26,6 +26,8 @@ docker run --rm -i advent-2025-day01-agent --part 2 < .private/inputs/2025-01.tx
 
 Workflow **Verify solutions** bygger containern, kör testerna och provar båda CLI-svaren med egna små data vid ändringar. ART of Codes server gör statisk analys efter att AoC har godkänt respektive del. Den kör inte Docker och mäter ingen exekveringstid. Ingen `solution.json` behövs: koden ligger i standardmappen `src/`.
 
+Båda CLI-lägena använder samma källfil. Standardvalet `parts: [1, 2]` registrerar därför samma kodversion för båda delarna, som var och en kräver AoC-godkännande. Statisk analys räknar hela `src/` för respektive del; `--part` väljer bara vilket svar programmet skriver vid körning.
+
 ## Idén och fallgropen
 
 Positionen hålls modulo 100. Del 1 räknar rotationer som slutar på noll. Del 2 räknar varje klick som når noll, även mitt i en rotation. `divmod` delar avståndet i hela varv och återstående klick: varje helt varv ger ett nollbesök, och resten kan ge högst ett till.
