@@ -1,6 +1,6 @@
 # Dag 1 · eget hantverk
 
-Välj språk, ändra `solution.json` och skriv lösning, tester och Dockerfile. Ange hur den byggs och körs från repots rot. Lägg inga indata eller kopierade uppgiftstexter här.
+Välj språk och skriv lösningen i `src/`, egna tester i `tests/` och en Dockerfile. Ingen `solution.json` behövs. Ange hur den byggs och körs från repots rot. Lägg inga indata eller kopierade uppgiftstexter här.
 
 ## Dokumentera din lösning
 
